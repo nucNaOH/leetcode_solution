@@ -23,6 +23,23 @@ var removeElement = function(nums, val) {
     return p;
 };
 
+/**
+ * 跟026一样，想复杂了...
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    var i = 0;
+    for (var j = 0; j < nums.length; j++) {
+        if (nums[j] !== val) {
+            nums[i] = nums[j];
+            i++;
+        }  
+    }
+    return i;
+};
+
 var a = [1,2,2,4,3,2,3]
 // var a = [2,2]
 // var a = []
