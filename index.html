@@ -9,9 +9,11 @@
 <body>
     <div id="main"></div>
     <script>
+        var r = null;
         fetch('./001/index.js').then(response => {
-            document.getElementById('main').textContent = response.data;
-            console.log(response);
+            document.getElementById('main').textContent = response.text();
+            console.log(response.text());
+            r = response;
         })
     </script>
 </body>
