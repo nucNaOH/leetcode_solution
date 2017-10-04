@@ -24,20 +24,20 @@ $(document).ready(function() {
     </div>
     <p>fetch</p>
     <div>
-        <pre>
-            <code id="main" class="javascript"></code>
-        </pre>
+        <pre><code id="main" class="javascript"></code></pre>
     </div>
     <script>
         // highlight
-        // hljs.initHighlightingOnLoad();
+        hljs.initHighlightingOnLoad();
         // fetch
         fetch('https://nucnaoh.github.io/leetcode_solution/001/index.js')
         .then(response => response.text())
         .then(text =>{
-            document.getElementById('main').innerHTML = text;
-            console.log(text);
+            const codeBlock = document.getElementById('main')
+            codeBlock.innerHTML = text;
+            return codeBlock;
         })
+        .then((ele) => hljs.highlightBlock(ele))
     </script>
 </body>
 </html>
