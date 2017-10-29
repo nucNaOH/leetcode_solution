@@ -162,7 +162,8 @@
                     Promise.all([ getThink(num), getCode(num)])
                         .then((response) => {
                             const codeBlock = document.querySelector('#code-block')
-                            codeBlock.innerHTML = response.join('\n\n\n');
+                            const content = '解题思路：\n' + response.join('\n\n通过代码：\n');
+                            codeBlock.innerHTML = 
                             hljs.highlightBlock(codeBlock)
                             document.querySelector('.dialog').style.display = 'block';
                         })
