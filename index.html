@@ -36,6 +36,7 @@
                 Total:
                 <span id="total">433</span>
             </h4>
+            <p>Notice: This github pages is still developing in progress. If you are looking for my solutions, please move to <a href="https://github.com/ssdna/leetcode_solution">this github repository</a>.</p>
         </div>
         <div class="content-container">
             <table id="problem-table" border="1">
@@ -44,67 +45,145 @@
                         <th>#</th>
                         <th>Status</th>
                         <th>Title</th>
+                        <th>Solution</th>
                         <th>Difficulty</th>
                         <th>Tags</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12</td>
-                        <td>Solved</td>
-                        <td>Title TitleTitle TitleTitleTitle</td>
-                        <td>Easy</td>
-                        <td>Array</td>
-                    </tr>
-                    <tr>
-                        <td>54</td>
-                        <td>Solved</td>
-                        <td>Title TitleTitle TitleTitleTitleTitleTitleTitle</td>
-                        <td>Medium</td>
-                        <td>String</td>
-                    </tr>
-                    <tr>
-                        <td>123</td>
-                        <td>Attempted</td>
-                        <td>Title TitleTitleTitleTitleTitleTitle Title</td>
-                        <td>Difficulty</td>
-                        <td>Binary Tree</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
-        <div>
-
-
-            <pre>
-                <code class="javascript">
-    $(document).ready(function() {
-        $('pre code').each(function(i, block) {
-            hljs.highlightBlock(block);
-        });
-    });
-                </code>
-            </pre>
-        </div>
-        <p>fetch</p>
-        <div>
-            <pre><code id="main" class="javascript"></code></pre>
+        <div class="dialog" id="problem-solution">
+            <pre><code id="code-block" class="javascript"></code></pre>
+            <div id="solution-think"></div>
         </div>
         <footer>Copyright &copy DNA </footer>
 
     </div>
     <script>
+        let problems = [];
         // highlight
         hljs.initHighlightingOnLoad();
         // fetch
-        fetch('https://ssnda.github.io/leetcode_solution/001/index.js')
-            .then(response => response.text())
-            .then(text => {
-                const codeBlock = document.getElementById('main')
-                codeBlock.innerHTML = text;
-                return codeBlock;
+        // fetch('./001/index.js')
+        //     .then(response => response.text())
+        //     .then(text => {
+        //         const codeBlock = document.getElementById('main')
+        //         codeBlock.innerHTML = text;
+        //         return codeBlock;
+        //     })
+        //     .then((ele) => hljs.highlightBlock(ele))
+
+        function getProblems () {
+            return fetch('./assets/json/problems.json')
+                .then(response => response.json())
+                .then(json => {
+                    problems = json;
+                    displayProblems(problems);
+                })
+                .then(() => {
+                    addEvent()
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
+        function displayProblems (problems) {
+            const tbody = document.querySelector('#problem-table tbody');
+            problems.forEach(function(p) {
+                const tr = document.createElement('tr');
+                // num
+                let td 
+                td = document.createElement('td');
+                td.textContent = p.num;
+                tr.appendChild(td);
+                // status
+                td = document.createElement('td');
+                td.textContent = p.status;
+                tr.appendChild(td);
+                // title
+                td = document.createElement('td');
+                td.textContent = p.title;
+                tr.appendChild(td);
+                // solution 
+                td = document.createElement('td');
+                const a = document.createElement('a');
+                // a.href = 'javascript:void(0)';
+                a.href = '#';
+                a.className = 'dialog-trigger';
+                a.textContent = 'click';
+                a.title = p.num;
+                td.appendChild(a);
+                tr.appendChild(td);
+                // difficulty
+                td = document.createElement('td');
+                const span = document.createElement('span');
+                switch (p.difficulty) {
+                    case 'Hard':
+                        span.className = 'label label-hard';
+                        break;
+                    case 'Medium':
+                        span.className = 'label label-medium';
+                        break;
+                    case 'Easy':
+                        span.className = 'label label-easy';
+                        break;
+                    default:
+                        break;
+                }
+                span.textContent = p.difficulty;
+                td.appendChild(span);
+                tr.appendChild(td);
+                // tags
+                td = document.createElement('td');
+                td.textContent = p.tags;
+                tr.appendChild(td);
+                
+                tbody.appendChild(tr);
+            });
+        }
+        getProblems();
+
+        function addEvent () {
+            document.addEventListener('click', (e) => {
+                document.querySelector('.dialog').style.display = 'none';
             })
-            .then((ele) => hljs.highlightBlock(ele))
+            // show solution
+            document.querySelectorAll('.dialog-trigger').forEach((d, i) => {
+                d.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let num = e.target.title;
+                    while (num.length !== 3) {
+                        num = '0' + num;
+                    }
+                    // fetch code
+                    Promise.all([ getThink(num), getCode(num)])
+                        .then((response) => {
+                            const codeBlock = document.querySelector('#code-block')
+                            codeBlock.innerHTML = response.join('\n\n\n');
+                            hljs.highlightBlock(codeBlock)
+                            document.querySelector('.dialog').style.display = 'block';
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                    return false;
+                })
+            })
+        }
+
+        function getCode (num) {
+            return fetch(`./${num}/index.js`)
+                .then(response => response.text())
+        }
+
+        function getThink (num) {
+            return fetch(`./${num}/README.md`)
+                .then(response => response.text())
+        }
+        
     </script>
 </body>
 

@@ -67,3 +67,39 @@ header {
     border-spacing: 0;
     border-collapse: collapse;
 }
+td, th {
+    padding: 8px;
+}
+.label {
+    color: #fff;
+    border-radius: 1024px;
+    padding: 3px 6px;
+    font-size: 75%;
+    font-weight: bold;
+}
+.label-hard {
+    background: #d9534f;
+}
+.label-medium {
+    background: #f0ad4e;
+}
+.label-easy {
+    background: #5cb85c;
+}
+.dialog {
+    position: fixed;
+    left: 50%;
+    top: 10%;
+    width: 600px;
+    height: 500px;
+    overflow: scroll;
+    transform: translateX(-50%);
+    display: none;
+}
+#code-block {
+    padding: 40px 50px;
+}
+.dialog-trigger {
+}
+
+

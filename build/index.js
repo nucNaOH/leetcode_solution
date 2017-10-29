@@ -4,6 +4,7 @@ const url = require('url')
 const basePath = '.';
 
 const problems = [];
+const attemptedProblems = ['653', '662'];
 
 fs.readdir(basePath, (err, files) => {
     if (err) throw err;
@@ -12,7 +13,7 @@ fs.readdir(basePath, (err, files) => {
         const readme = url.resolve(basePath, d + '/README.md');
         fs.readFile(readme, 'utf8', (err, data) => {
             if (err) throw err;
-            let num, title, difficulty, tags;
+            let num, title, status, difficulty, tags;
             // RegExp match num, title, difficulty, tags;
             // console.log('Parsing', readme, '......');
             try {
@@ -23,10 +24,15 @@ fs.readdir(basePath, (err, files) => {
             } catch (e) {
                 throw e;
             }
-            const p = { num, title, difficulty, tags };
+            if (attemptedProblems.indexOf(num) === -1) {
+                status = 'Solved';
+            } else {
+                status = 'Attempted';
+            }
+            const p = { num, status, title, difficulty, tags };
             problems.push(p);
             if (dirs.length === problems.length) {
-                fs.writeFile(url.resolve(basePath, 'build/problems.json'), JSON.stringify(problems), (err) => {
+                fs.writeFile(url.resolve(basePath, 'assets/json/problems.json'), JSON.stringify(problems), (err) => {
                     if (err) throw err;
                     console.log('problems.json generated!')
                 }) 
