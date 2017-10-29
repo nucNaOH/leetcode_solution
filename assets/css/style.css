@@ -1,0 +1,69 @@
+/* css reset */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body, ul{
+    margin: 0;
+}
+ul {
+    list-style: none;
+}
+
+/* 适配移动端 */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0px auto;
+}
+
+header {
+    height: 55px;
+    line-height: 55px;
+    color: #9d9d9d;
+    background-color: #333;
+}
+.home {
+    display: inline-block;
+    vertical-align: middle;
+}
+.home-icon {
+    width: 30px;
+    display: none;
+}
+.home-title {
+    font-size: 20px;
+}
+.nav {
+    display: inline-block;
+}
+.nav-item {
+    display: inline-block;
+    margin: 0 30px;
+    cursor: pointer;
+}
+.nav-item:hover {
+    color: #fff;
+
+}
+
+#notice {
+    border-radius: 7px;
+    background-color: #d9eef7;
+    text-align: center;
+    padding: 20px;
+    margin: 30px 0;
+}
+#solved {
+    color: #00c314;
+}
+#total {
+    color: #408ce4;
+}
+#problem-table {
+    width: 100%;
+    max-width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}

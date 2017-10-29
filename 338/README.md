@@ -2,7 +2,7 @@
 
 __[Difficulty]__: _`Medium`_
 
-__[Tag]__: _`DP, Bit`_
+__[Tag]__: _`DP`_ _`Bit Manipulation`_
 
 __[Question]__: 计算从`0`到指定数字`num`的所有数的二进制形式中`1`的个数。
 

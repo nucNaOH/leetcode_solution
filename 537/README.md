@@ -2,7 +2,7 @@
 
 __[Difficulty]__: _`Medium`_
 
-__[Tag]__: _`String, Math`_
+__[Tag]__: _`String`_ _`Math`_
 
 __[Question]__: 计算两个复数（形如`a+bi`）的乘积。
 
