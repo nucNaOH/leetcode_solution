@@ -34,7 +34,7 @@
             <h4>Solved:
                 <span id="solved">12</span>/
                 Total:
-                <span id="total">433</span>
+                <span id="total">683</span>
             </h4>
             <p>Notice: This github pages is still developing in progress. If you are looking for my solutions, please move to <a href="https://github.com/ssdna/leetcode_solution">this github repository</a>.</p>
         </div>
@@ -91,6 +91,8 @@
                 })
         }
         function displayProblems (problems) {
+            const solved = document.querySelector('#solved');
+            solved.innerHTML = problems.length;
             const tbody = document.querySelector('#problem-table tbody');
             problems.forEach(function(p) {
                 const tr = document.createElement('tr');
@@ -163,7 +165,7 @@
                         .then((response) => {
                             const codeBlock = document.querySelector('#code-block')
                             const content = '解题思路：\n' + response.join('\n\n通过代码：\n');
-                            codeBlock.innerHTML = 
+                            codeBlock.innerHTML = content;
                             hljs.highlightBlock(codeBlock)
                             document.querySelector('.dialog').style.display = 'block';
                         })
