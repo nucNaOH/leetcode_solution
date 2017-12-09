@@ -4,6 +4,7 @@
   "description": "My leetcode solution with JavaScript.",
   "main": "build.js",
   "scripts": {
+    "build": "node build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

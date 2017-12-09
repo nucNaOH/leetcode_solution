@@ -44,6 +44,49 @@ var addTwoNumbers = function(l1, l2) {
     return result;
 };
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * 时隔半年，第二次做...
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function (l1, l2) {
+    let result = null;
+    let p = null;
+    let flag = 0;
+    while (l1 || l2 || flag) {
+        let current = new ListNode(0);
+        let sum, a = 0,
+            b = 0;
+        if (l1) {
+            a = l1.val;
+            l1 = l1.next;
+        }
+        if (l2) {
+            b = l2.val;
+            l2 = l2.next;
+        }
+        sum = a + b + flag;
+        current.val = sum % 10;
+        flag = parseInt(sum / 10);
+
+        if (!result) {
+            result = p = current;
+        } else {
+            p.next = current;
+            p = p.next
+        }
+    }
+    return result;
+};
+
 // function ListNode(val) {
 //     this.val = val;
 //     this.next = null;
