@@ -95,11 +95,34 @@ td, th {
     overflow: scroll;
     transform: translateX(-50%);
     display: none;
+    z-index: 1000;
 }
 #code-block {
     padding: 40px 50px;
 }
+#code-block b.title {
+    font-size: 16px;
+    color: #43a6f5;
+}
 .dialog-trigger {
+}
+
+.mask {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    opacity: 0.6;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+.footer {
+    margin: 20px 0;
+    text-align: center;
 }
 
 

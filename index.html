@@ -36,7 +36,7 @@
                 Total:
                 <span id="total">683</span>
             </h4>
-            <p>Notice: This github pages is still developing in progress. If you are looking for my solutions, please move to <a href="https://github.com/ssdna/leetcode_solution">this github repository</a>.</p>
+            <p>Notice: This github pages is still developing in progress. <br>If you are looking for my solutions, please move to <a href="https://github.com/ssdna/leetcode_solution">this github repository</a>.</p>
         </div>
         <div class="content-container">
             <table id="problem-table" border="1">
@@ -59,7 +59,8 @@
             <pre><code id="code-block" class="javascript"></code></pre>
             <div id="solution-think"></div>
         </div>
-        <footer>Copyright &copy DNA </footer>
+        <div class="mask"></div>
+        <footer class="footer">Copyright &copy DNA </footer>
 
     </div>
     <script>
@@ -149,8 +150,8 @@
         getProblems();
 
         function addEvent () {
-            document.addEventListener('click', (e) => {
-                document.querySelector('.dialog').style.display = 'none';
+            document.querySelector('.mask').addEventListener('click', (e) => {
+                hideDialog();
             })
             // show solution
             document.querySelectorAll('.dialog-trigger').forEach((d, i) => {
@@ -164,10 +165,10 @@
                     Promise.all([ getThink(num), getCode(num)])
                         .then((response) => {
                             const codeBlock = document.querySelector('#code-block')
-                            const content = '解题思路：\n' + response.join('\n\n通过代码：\n');
+                            const content = '<b class="title">解题思路</b>：\n\n' + response.join('\n\n<b class="title">通过代码</b>：\n\n');
                             codeBlock.innerHTML = content;
-                            hljs.highlightBlock(codeBlock)
-                            document.querySelector('.dialog').style.display = 'block';
+                            hljs.highlightBlock(codeBlock);
+                            showDialog();
                         })
                         .catch(err => {
                             console.error(err);
@@ -185,6 +186,30 @@
         function getThink (num) {
             return fetch(`./${num}/README.md`)
                 .then(response => response.text())
+        }
+
+        // function initDialog() {
+        //     const dialog = document.querySelector('.dialog');
+        //     dialog.addEventListener('click', (e) => {
+        //         e.preventDefault();
+        //         e.stopPropagation();
+        //     })
+        // }
+
+        function showDialog() {
+            const dialog = document.querySelector('.dialog');
+            const mask = document.querySelector('.mask');
+            dialog.style.display = 'block';
+            mask.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideDialog() {
+            const dialog = document.querySelector('.dialog');
+            const mask = document.querySelector('.mask');
+            dialog.style.display = 'none';
+            mask.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
         
     </script>
