@@ -8,6 +8,7 @@
     <title>leetcode solution</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-light.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script> -->
 </head>
@@ -42,11 +43,19 @@
             <table id="problem-table" border="1">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Status</th>
-                        <th>Title</th>
+                        <th>#
+                            <i class="fa fa-sort" id="sort-by-num" aria-hidden="true"></i>
+                        </th>
+                        <th>Status
+                            <i class="fa fa-sort" id="sort-by-status" aria-hidden="true"></i>
+                        </th>
+                        <th>Title
+                            <i class="fa fa-sort" id="sort-by-title" aria-hidden="true"></i>
+                        </th>
                         <th>Solution</th>
-                        <th>Difficulty</th>
+                        <th>Difficulty
+                            <i class="fa fa-sort" id="sort-by-difficulty" aria-hidden="true"></i>
+                        </th>
                         <th>Tags</th>
                     </tr>
                 </thead>
@@ -64,25 +73,16 @@
 
     </div>
     <script>
-        let problems = [];
+        let problems = [], isDesc = false;
         // highlight
         hljs.initHighlightingOnLoad();
-        // fetch
-        // fetch('./001/index.js')
-        //     .then(response => response.text())
-        //     .then(text => {
-        //         const codeBlock = document.getElementById('main')
-        //         codeBlock.innerHTML = text;
-        //         return codeBlock;
-        //     })
-        //     .then((ele) => hljs.highlightBlock(ele))
 
         function getProblems () {
             return fetch('./assets/json/problems.json')
                 .then(response => response.json())
                 .then(json => {
                     problems = json;
-                    displayProblems(problems);
+                    sortAndDisplay('num')
                 })
                 .then(() => {
                     addEvent()
@@ -91,10 +91,37 @@
                     console.error(err);
                 })
         }
+
+        function sortAndDisplay(field) {
+            isDesc = !isDesc;
+            sortProblems(problems, field, isDesc);
+            displayProblems(problems);
+        }
+
+        function sortProblems(array, field, isDesc) {
+            let cmp;
+            switch (field) {
+                case 'num':
+                    cmp = (a, b) => {
+                        let tmp = Number(a.num) - Number(b.num);
+                        return isDesc ? -tmp : tmp;
+                    }
+                    break;
+                default:
+                    cmp = (a, b) => {
+                        const tmp = a[field].length - b[field].length;
+                        return isDesc ? -tmp : tmp; 
+                    }
+                    break;
+            }
+            array.sort(cmp)
+        }
+
         function displayProblems (problems) {
             const solved = document.querySelector('#solved');
             solved.innerHTML = problems.length;
             const tbody = document.querySelector('#problem-table tbody');
+            tbody.innerHTML = '';
             problems.forEach(function(p) {
                 const tr = document.createElement('tr');
                 // num
@@ -150,6 +177,18 @@
         getProblems();
 
         function addEvent () {
+            document.querySelector('#sort-by-num').addEventListener('click', (e) => {
+                sortAndDisplay('num')
+            })
+            document.querySelector('#sort-by-status').addEventListener('click', (e) => {
+                sortAndDisplay('status')
+            })
+            document.querySelector('#sort-by-title').addEventListener('click', (e) => {
+                sortAndDisplay('title')
+            })
+            document.querySelector('#sort-by-difficulty').addEventListener('click', (e) => {
+                sortAndDisplay('difficulty')
+            })
             document.querySelector('.mask').addEventListener('click', (e) => {
                 hideDialog();
             })
