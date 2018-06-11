@@ -1,5 +1,4 @@
 /**
-<<<<<<< HEAD
  * Definition for singly-linked list.
  * function ListNode(val) {
  *     this.val = val;
@@ -30,29 +29,3 @@ var removeNthFromEnd = function(head, n) {
     p.next = p.next.next;
     return head;
 };
-=======
- * @param {string} s
- * @return {boolean}
- */
-var isValid = function(s) {
-    var c = ['({[', ')}]'];
-    var stack = [];
-    for (var i = 0; i < s.length; i++) {
-        let tmp = s[i];
-        if (c[0].indexOf(tmp) > -1) {
-            stack.push(tmp);
-        } else if (c[1].indexOf(tmp) > -1 && stack[stack.length-1] == c[0][ c[1].indexOf(tmp) ]) {
-            stack.pop();
-        } else {
-            return false;
-        }
-    }
-    if (stack.length === 0) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
-// console.log(isValid('{{([[])}}'))
->>>>>>> 94f79e8620597aa2b66fe24e1f8c6767c0ffbf08
